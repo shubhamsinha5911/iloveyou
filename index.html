@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Romantic Mini Game</title>
+  <meta name="description" content="An adorable interactive romantic website that feels like a playful mini game." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,500;9..144,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="sky sky-a" aria-hidden="true"></div>
+  <div class="sky sky-b" aria-hidden="true"></div>
+  <div class="sky sky-c" aria-hidden="true"></div>
+  <div class="particle-layer" id="particleLayer" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <div class="brand"><span>❤</span> For you, always</div>
+    <button class="music-btn" id="musicToggle" type="button" aria-pressed="false">Music off</button>
+  </header>
+
+  <main class="game">
+    <section class="screen active" id="screen-envelope">
+      <div class="screen-card envelope-card">
+        <p class="eyebrow">Opening</p>
+        <h1>Hey beautiful ❤️</h1>
+        <button class="envelope" id="envelopeButton" type="button" aria-label="Open envelope">
+          <span class="envelope-back"></span>
+          <span class="envelope-front"></span>
+          <span class="envelope-flap"></span>
+          <span class="envelope-seal">❤</span>
+        </button>
+        <p class="envelope-note">Click the envelope to open it.</p>
+        <div class="paper hidden" id="paperIntro">
+          <p>Before we continue... I owe you something.</p>
+          <button class="primary-btn" id="openLetterButton" type="button">Open it 💌</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen" id="screen-apology">
+      <div class="screen-card apology-card">
+        <p class="eyebrow">Apology</p>
+        <h2>A sincere apology</h2>
+        <p class="typewriter" id="apologyText"></p>
+        <button class="primary-btn hidden" id="continueFromApology" type="button">Continue ❤️</button>
+      </div>
+    </section>
+
+    <section class="screen" id="screen-loading">
+      <div class="screen-card loading-card">
+        <p class="eyebrow">Loading</p>
+        <h2 id="loadingHeading">Loading memories...</h2>
+        <div class="loader">
+          <span class="loader-ring"></span>
+          <span class="loader-heart">❤</span>
+        </div>
+        <p class="loading-message" id="loadingMessage">Loading memories...</p>
+      </div>
+    </section>
+
+    <section class="screen" id="screen-question">
+      <div class="screen-card question-card">
+        <p class="eyebrow">Question</p>
+        <h2 id="questionHeading">Can I ask you something?</h2>
+        <button class="primary-btn" id="okayButton" type="button">Okay 😌</button>
+        <div class="followup hidden" id="lovePromptWrap">
+          <h3>Do you still love me? ❤️</h3>
+          <div class="choice-row">
+            <button class="secondary-btn yes-btn" id="yesLoveButton" type="button">YES ❤️</button>
+            <button class="secondary-btn no-btn" id="noLoveButton" type="button">NO 😒</button>
+          </div>
+          <div class="pester-zone hidden" id="pesterZone">
+            <p>Fine. You seem determined.</p>
+            <button class="secondary-btn no-btn permanent-no" id="permanentNoButton" type="button">NO 😒</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen" id="screen-celebration">
+      <div class="screen-card celebration-card">
+        <p class="eyebrow">Celebration</p>
+        <h2 class="celebration-line">YAYYYYYYY ❤️</h2>
+        <p class="celebration-line delay-1">I knew it.</p>
+        <p class="celebration-line delay-2">Because I still love you too.</p>
+        <p class="celebration-line delay-3">And honestly...</p>
+        <p class="celebration-line delay-4">I'd choose you again.</p>
+        <p class="celebration-line delay-5">And again.</p>
+        <p class="celebration-line delay-6">And again.</p>
+        <p class="celebration-line delay-7">And again.</p>
+        <p class="celebration-line delay-8">No matter how annoying you are 😤❤️</p>
+      </div>
+    </section>
+
+    <section class="screen" id="screen-story">
+      <div class="screen-card story-card">
+        <p class="eyebrow">Our Story</p>
+        <h2>Our Story ❤️</h2>
+        <p class="story-lead">Since you're here...</p>
+        <p class="story-lead">I want to show you some of my favorite memories.</p>
+        <p class="story-lead">Because every one of them somehow leads back to you. ❤️</p>
+        <button class="primary-btn" id="storyContinueButton" type="button">Continue ❤️</button>
+      </div>
+    </section>
+
+    <section class="screen scrapbook-screen" id="screen-scrapbook">
+      <div class="story-section">
+        <p class="eyebrow">First photoshoot</p>
+        <h2>The day my gallery became my favorite place.</h2>
+        <div class="gallery-grid polaroid-grid" id="photoshootGallery" data-gallery="photoshoot"></div>
+        <p class="story-caption">The day these memories were created ❤️</p>
+        <p class="story-caption">I still look at these photos more than I should.</p>
+        <p class="story-caption">This was the day I realized how lucky I am.</p>
+      </div>
+
+      <div class="story-section">
+        <p class="eyebrow">Our hugs</p>
+        <h2>My favorite place.</h2>
+        <div class="gallery-grid cozy-grid" id="hugGallery" data-gallery="hugs"></div>
+        <p class="random-message" id="hugMessage">Click a hug photo for a little message.</p>
+      </div>
+
+      <div class="story-section">
+        <p class="eyebrow">First date</p>
+        <h2>The date I'll never forget.</h2>
+        <div class="timeline-grid" id="dateGallery" data-gallery="date"></div>
+        <p class="story-caption">I was excited the entire day.</p>
+        <p class="story-caption">I tried to act cool. It didn't work.</p>
+        <p class="story-caption">One of my favorite days ever.</p>
+        <p class="story-caption">10/10 would fall for you again.</p>
+      </div>
+
+      <div class="story-section">
+        <p class="eyebrow">Cute moments</p>
+        <h2>Little moments. Big memories.</h2>
+        <div class="scrapbook-grid" id="cuteGallery" data-gallery="cute"></div>
+        <p class="story-caption">We were adorable here.</p>
+        <p class="story-caption">This picture always makes me smile.</p>
+        <p class="story-caption">No thoughts. Just us.</p>
+        <p class="story-caption">My favorite kind of chaos.</p>
+      </div>
+
+      <div class="story-section">
+        <p class="eyebrow">Your beauty</p>
+        <h2>The prettiest girl I know.</h2>
+        <div class="cinema-grid" id="beautyGallery" data-gallery="beauty"></div>
+        <p class="story-caption">My favorite view.</p>
+        <p class="story-caption">How are you this beautiful?</p>
+        <p class="story-caption">I could stare at this smile forever.</p>
+        <p class="story-caption">Still takes my breath away.</p>
+        <p class="story-caption">The reason my standards got ruined.</p>
+      </div>
+
+      <div class="story-section collage-section">
+        <p class="eyebrow">Favorite memories</p>
+        <h2>Our favorite memories collage ❤️</h2>
+        <div class="collage-grid" id="collageGrid"></div>
+        <div class="collage-text">
+          <p>Every photo here tells a story.</p>
+          <p>And every story somehow leads back to you.</p>
+          <p>And honestly...</p>
+          <p>I can't wait to make hundreds more.</p>
+        </div>
+        <button class="primary-btn" id="storyToSurpriseButton" type="button">Continue ❤️</button>
+      </div>
+    </section>
+
+    <section class="screen surprise-screen" id="screen-surprise">
+      <div class="screen-card surprise-card">
+        <p class="eyebrow">Surprise</p>
+        <div class="glow-heart-wrap">
+          <button class="glow-heart" id="finalHeartButton" type="button">Click me ❤️</button>
+        </div>
+        <div class="surprise-copy">
+          <p>You are my favorite notification.</p>
+          <p>You are my favorite call.</p>
+          <p>You are my favorite person.</p>
+          <p>And my favorite future.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen letter-screen" id="screen-letter">
+      <div class="screen-card letter-card">
+        <p class="eyebrow">Love letter</p>
+        <h2>A love letter</h2>
+        <p class="typewriter letter-text" id="letterText"></p>
+        <p class="letter-close">So...<br />Will you stay and keep making memories with me?</p>
+        <button class="primary-btn" id="alwaysButton" type="button">Always ❤️</button>
+      </div>
+    </section>
+  </main>
+
+  <div class="overlay blur-overlay hidden" id="blurOverlay"></div>
+  <div class="starfield hidden" id="starfield"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
